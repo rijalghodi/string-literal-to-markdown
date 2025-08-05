@@ -42,23 +42,6 @@ const EXAMPLES = [
   },
 ];
 
-// Constants for UI text
-const UI_TEXT = {
-  title: BRAND_CONSTANTS.APP_NAME,
-  subtitle: BRAND_CONSTANTS.APP_TAGLINE,
-  inputLabel: "String Literal Input",
-  previewLabel: "Preview",
-  examplesLabel: "Quick Examples",
-  placeholder: `Enter your string literal here...
-Example: # Header\\n\\n**Bold** and *italic* text\\n\\tWith tab indentation`,
-  copyButton: "Copy",
-  copiedButton: "Copied!",
-  downloadButton: "Download",
-  renderedDescription:
-    "Showing rendered Markdown with escaped characters converted",
-  rawDescription: "Showing raw text with escaped characters converted",
-} as const;
-
 export default function StringLiteralViewer() {
   const [inputString, setInputString] = useState(EXAMPLES[0].example);
   const [viewMode, setViewMode] = useState<"raw" | "rendered">("rendered");
@@ -118,9 +101,11 @@ export default function StringLiteralViewer() {
               <ThemeToggle />
             </div>
             <h1 className="text-4xl font-bold text-foreground mb-2">
-              {UI_TEXT.title}
+              {BRAND_CONSTANTS.APP_NAME}
             </h1>
-            <p className="text-muted-foreground">{UI_TEXT.subtitle}</p>
+            <p className="text-muted-foreground">
+              {BRAND_CONSTANTS.APP_TAGLINE}
+            </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -128,7 +113,7 @@ export default function StringLiteralViewer() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-semibold text-foreground">
-                  {UI_TEXT.inputLabel}
+                  String Literal Input
                 </h2>
                 <div className="text-sm text-muted-foreground">
                   {inputString.length} characters
@@ -139,8 +124,9 @@ export default function StringLiteralViewer() {
                 <Textarea
                   value={inputString}
                   onChange={(e) => setInputString(e.target.value)}
-                  placeholder={UI_TEXT.placeholder}
-                  className="h-96 p-4 resize-none font-mono"
+                  placeholder={`Enter your string literal here...
+Example: # Header\\n\\n**Bold** and *italic* text\\n\\tWith tab indentation`}
+                  className="h-120 p-4 resize-none font-mono text-sm"
                 />
               </div>
 
@@ -157,7 +143,7 @@ export default function StringLiteralViewer() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-semibold text-foreground">
-                  {UI_TEXT.previewLabel}
+                  Preview
                 </h2>
                 <div className="flex items-center gap-0 rounded-md overflow-hidden">
                   {VIEW_MODES.map((mode) => {
@@ -182,21 +168,31 @@ export default function StringLiteralViewer() {
 
               <div className="relative">
                 <div className="absolute top-2 right-2 flex gap-0 z-10">
-                  <Button onClick={handleCopy} variant="ghost" size="sm">
+                  <Button
+                    onClick={handleCopy}
+                    variant="ghost"
+                    size="sm"
+                    className="bg-card text-card-foreground"
+                  >
                     {copied ? (
                       <Check className="w-3 h-3" />
                     ) : (
                       <Copy className="w-3 h-3" />
                     )}
-                    {copied ? UI_TEXT.copiedButton : UI_TEXT.copyButton}
+                    {copied ? "Copied!" : "Copy"}
                   </Button>
-                  <Button onClick={handleDownload} variant="ghost" size="sm">
+                  <Button
+                    onClick={handleDownload}
+                    variant="ghost"
+                    size="sm"
+                    className="bg-card text-card-foreground"
+                  >
                     <Download className="w-3 h-3" />
-                    {UI_TEXT.downloadButton}
+                    Download
                   </Button>
                 </div>
 
-                <div className="w-full h-96 p-4 border border-border rounded-lg bg-card text-card-foreground overflow-auto">
+                <div className="w-full h-120 p-4 border border-border rounded-lg bg-card text-card-foreground overflow-auto">
                   {viewMode === "rendered" ? (
                     <div className="text-base space-y-4 [&>h1]:text-2xl [&>h1]:font-bold [&>h1]:text-foreground [&>h2]:text-xl [&>h2]:font-semibold [&>h2]:text-foreground [&>h3]:text-lg [&>h3]:font-medium [&>h3]:text-foreground [&>p]:text-foreground [&>p]:leading-relaxed [&>ul]:list-disc [&>ul]:pl-6 [&>ol]:list-decimal [&>ol]:pl-6 [&>li]:text-foreground [&>blockquote]:border-l-4 [&>blockquote]:border-muted [&>blockquote]:pl-4 [&>blockquote]:italic [&>blockquote]:text-muted-foreground [&>code]:bg-muted [&>code]:px-1 [&>code]:py-0.5 [&>code]:rounded [&>code]:text-sm [&>pre]:bg-muted [&>pre]:p-3 [&>pre]:rounded [&>pre]:overflow-x-auto [&>strong]:font-semibold [&>em]:italic">
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>
@@ -213,8 +209,8 @@ export default function StringLiteralViewer() {
 
               <div className="text-xs text-muted-foreground">
                 {viewMode === "rendered"
-                  ? UI_TEXT.renderedDescription
-                  : UI_TEXT.rawDescription}
+                  ? "Showing rendered Markdown with escaped characters converted"
+                  : "Showing raw text with escaped characters converted"}
               </div>
             </div>
           </div>
@@ -222,7 +218,7 @@ export default function StringLiteralViewer() {
           {/* Examples Section */}
           <div className="mt-12">
             <h3 className="text-lg font-semibold text-foreground mb-4">
-              {UI_TEXT.examplesLabel}
+              Quick Examples
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {EXAMPLES.map((example, index) => (
@@ -230,13 +226,11 @@ export default function StringLiteralViewer() {
                   key={index}
                   onClick={() => handleExampleClick(example.example)}
                   variant="outline"
-                  className="h-auto p-4 text-left justify-start"
+                  className="h-auto p-4 text-left justify-start bg-card text-card-foreground font-normal"
                 >
                   <div>
-                    <h4 className="font-medium text-base text-card-foreground mb-2">
-                      {example.title}
-                    </h4>
-                    <p className="text-sm text-muted-foreground font-mono">
+                    <h4 className="text-base mb-2">{example.title}</h4>
+                    <p className="text-sm font-mono">
                       {example.example.substring(0, 50)}...
                     </p>
                   </div>

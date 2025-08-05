@@ -7,6 +7,7 @@ import { Copy, Download, Eye, Code, Check } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { BRAND_CONSTANTS } from "@/lib/brand";
 
 // Constants for escaped characters
 const ESCAPED_CHARACTERS = [
@@ -43,9 +44,8 @@ const EXAMPLES = [
 
 // Constants for UI text
 const UI_TEXT = {
-  title: "String Literal to Markdown Viewer",
-  subtitle:
-    "Convert string literals with escaped characters into beautiful Markdown",
+  title: BRAND_CONSTANTS.APP_NAME,
+  subtitle: BRAND_CONSTANTS.APP_TAGLINE,
   inputLabel: "String Literal Input",
   previewLabel: "Preview",
   examplesLabel: "Quick Examples",

@@ -140,7 +140,7 @@ export default function StringLiteralViewer() {
                   value={inputString}
                   onChange={(e) => setInputString(e.target.value)}
                   placeholder={UI_TEXT.placeholder}
-                  className="h-96 p-4 resize-none"
+                  className="h-96 p-4 resize-none font-mono"
                 />
               </div>
 

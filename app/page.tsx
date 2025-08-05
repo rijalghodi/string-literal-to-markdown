@@ -50,15 +50,15 @@ export default function StringLiteralViewer() {
   // Function to convert string literal to actual string
   const convertStringLiteral = useCallback((str: string): string => {
     return str
-      .replace(/\\n/g, "\n\n")
-      .replace(/\\t/g, "\t")
-      .replace(/\\r/g, "\r")
-      .replace(/\\\\/g, "\\")
-      .replace(/\\'/g, "'")
-      .replace(/\\"/g, '"')
-      .replace(/\\b/g, "\b")
-      .replace(/\\f/g, "\f")
-      .replace(/\\v/g, "\v");
+      .replace(/\\\\/g, "\\")   // Double backslash
+      .replace(/\\n/g, "\n")    // Newline
+      .replace(/\\t/g, "\t")    // Tab
+      .replace(/\\r/g, "\r")    // Carriage return
+      .replace(/\\"/g, '"')     // Double quote
+      .replace(/\\'/g, "'")     // Single quote
+      .replace(/\\b/g, "\b")    // Backspace
+      .replace(/\\f/g, "\f")    // Form feed
+      .replace(/\\v/g, "\v");   // Vertical tab
   }, []);
 
   const convertedString = convertStringLiteral(inputString);
